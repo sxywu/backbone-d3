@@ -1,0 +1,201 @@
+* {
+  font-family: Helvetica, sans-serif;
+}
+
+.contentBG {
+  background-color: #fff;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 75%;
+  height: 100%;
+  box-shadow: 0 0 10px #cfcfcf;
+}
+
+.notesBG {
+  background-color: #fcfcfc;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 30%;
+  height: 100%;
+}
+
+
+.page {
+  width: 100%;
+  min-height: 700px;
+  position: relative;
+  display: table;
+  padding-bottom: 100px;
+}
+
+h1, h2, h3, h4, h5 {
+  margin: 40px;
+}
+
+.title, .content {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.center {
+  text-align: center;
+}
+
+svg.center {
+  display: block;
+  margin: auto;
+}
+
+.left {
+  float: left;
+}
+
+.title h1 {
+  font-weight: 400;
+}
+
+.content {
+  width: 75%;
+}
+
+.notes {
+  height: 100%;
+  color: #666;
+  margin: 20px;
+}
+
+.span4 {
+  float: left;
+  width: 24%;
+  padding-right: 20px;
+}
+
+.span3 {
+  float: left;
+  width: 32%;
+  padding-right: 20px;
+}
+
+.span2 {
+  float: left;
+  width: 49%;
+  padding-right: 20px;
+}
+
+.demo, .liveCode {
+  margin: 40px;
+  width: 90%;
+  float: left;
+}
+
+.emp {
+  display: inline-block;
+  border-bottom: 1px solid #666;
+}
+
+/*
+specific DOM elements
+*/
+.fullPage {
+  background-color: #fff;
+  border-bottom: 1px solid #cfcfcf;
+  border-top: 1px solid #cfcfcf;
+}
+
+.orderNumbers {
+  display: inline-block;
+  background-color: #333;
+  color: #fff;
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.demoContainer {
+  padding-top: 20px;
+}
+
+.demoContainer.fixed, .codeContainer.fixed {
+  position: relative;
+}
+
+.demoDiv, .demoEnv .demoContainer div {
+  min-height: 75px;
+  border-radius: 3px;
+  border: 1px solid #666;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+.demoDiv.noVis {
+  visibility: hidden;
+}
+
+.demoContainer p {
+  font-size: .85em;
+  color: #999;
+
+}
+
+.demo h4 {
+  border-radius: 3px;
+  margin: 0px;
+  padding: 15px;
+  width: 100%;
+  border: 1px dashed #666;
+}
+
+.demoEnv li {
+  margin: 0px;
+  padding: 15px;
+  border: 3px double #666;
+}
+
+pre {
+  margin: 20px 0;
+}
+
+.nav-stacked > .manipulateChild {
+  margin-left: 40px;
+}
+
+.highlight {
+  border: 3px solid #428bca; /*blue*/
+  background-color: rgba(66, 139, 202, .05);
+}
+
+.footnote {
+  font-size: .85em;
+  margin: 15px;
+}
+
+.liveCode textarea {
+  height: 500px;
+  border-radius: 3px;
+}
+
+.demo svg {
+  width: 110px;
+  height: 120px;
+}
+
+.liveCode svg {
+  width: 60%;
+  height: 500px;
+  border: 1px solid #666;
+  margin-left: 40px;
+  border-radius: 3px;
+  float: left;
+}
+
+/**
+dealing with bootstrap
+*/
+
+.nav-pills > li.active > a input, .nav-pills > li.active > a:focus input {
+  color: #428bca;
+}
