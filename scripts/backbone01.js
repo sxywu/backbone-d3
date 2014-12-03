@@ -21,7 +21,8 @@ var PartyCollection = Backbone.Collection.extend({
 		}).map(function(actions) {
 			return {
 				name: actions[0].get('partier'),
-				entered: actions[0].get('time') === time
+				entered: actions[0].get('time') === time,
+				exit: actions[1] && (actions[1].get('time') - 100 === time)
 			};
 		}).value();
 	}
@@ -62,9 +63,11 @@ var PartyView = Backbone.View.extend({
 	renderPartiers: function(partiers) {
 		var $partiers = $('<span class="partiers"></span>');
 		_.each(partiers, function(partier) {
-			$partiers.append('<span class="label '
-				+ (partier.entered ? 'label-primary' : 'label-default')
-				+ ' partier">'
+			$partiers.append('<span class="label ' 
+				+ (partier.entered ? 'label-primary ' : '')
+				+ (partier.exit ? 'label-warning ': '')
+				+ (!partier.entered && !partier.exit ? 'label-default ': '')
+				+ 'partier">'
 				+ partier.name + '</span>');
 		});
 		return $partiers;

@@ -12,7 +12,8 @@ d3.json('data/party.json', function(response) {
 			}).map(function(actions) {
 				return {
 					name: actions[0].partier,
-					entered: actions[0].time === time
+					entered: actions[0].time === time,
+					exit: actions[1] && (actions[1].time - 100 === time)
 				};
 			}).value();
 		}
@@ -57,10 +58,13 @@ d3.json('data/party.json', function(response) {
 				'partier': true,
 				'label': true,
 				'label-default': function(partier) {
-					return partier.entered;
+					return !partier.entered && !partier.exit;
 				},
 				'label-primary': function(partier) {
 					return partier.entered;
+				},
+				'label-warning': function(partier) {
+					return partier.exit;
 				}
 			}).text(function(partier) {
 				return partier.name;
@@ -93,10 +97,13 @@ d3.json('data/party.json', function(response) {
 				'partier': true,
 				'label': true,
 				'label-default': function(partier) {
-					return !partier.entered;
+					return !partier.entered && !partier.exit;
 				},
 				'label-primary': function(partier) {
 					return partier.entered;
+				},
+				'label-warning': function(partier) {
+					return partier.exit;
 				}
 			}).text(function(partier) {
 				return partier.name;
