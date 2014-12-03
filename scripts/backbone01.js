@@ -3,29 +3,34 @@ simple visualization of partygoers at 6pm, 9pm, 12pm
 written only with Backbone
 */
 
-var party = [
-	{
-		time: 1800,
-		partiers: ['Shirley', 'Clarisse', 'Katherine']
-	},
-	{
-		time: 2100,
-		partiers: ['Shirley', 'Alex', 'Clarisse', 'Allison', 'Mike', 'Adam', 'Patrick', 'Katherine', 'Diane']
-	},
-	{
-		time: 2400,
-		partiers: ['Clarisse', 'Mike', 'Adam', 'Katherine', 'Zack']
-	}
-];
+
 
 // first, "fetch" the data into a collection
-var partyCollection = new Backbone.Collection();
-partyCollection.reset(party);
+var PartyCollection = Backbone.Collection.extend({
+	url: "data/party.json",
+	getAllTimes: function() {
+		return this.chain().pluck('attributes')
+			.pluck('time').uniq().value();
+	},
+	getPartiersAtTime: function(time) {
+		return this.chain().groupBy(function(model) {
+			return model.get('partier')
+		}).filter(function(times) {
+			return times[0].get('time') <= time
+				&& (times[1] ? time < times[1].get('time') : true);
+		}).map(function(times) {
+			return {
+				name: times[0].get('partier'),
+				entered: times[0].get('time') === time
+			};
+		}).value()
+	}
+});
 
 var PartyView = Backbone.View.extend({
 	initialize: function() {
 		this.collection = this.options.collection;
-		this.index = 0;
+		this.selectedTime;
 
 		this.collection.on('reset', _.bind(this.render, this));
 	},
@@ -33,38 +38,53 @@ var PartyView = Backbone.View.extend({
 	// 1. the time
 	// 2. the partiers at that time
 	render: function() {
-		var model = this.collection.at(this.index);
-		this.$el.html(this.renderTime(model));
-		this.$el.append(this.renderPartiers(model));
+		var times = this.collection.getAllTimes();
+		this.selectedTime = this.selectedTime || times[0];
+		var partiers = this.collection.getPartiersAtTime(this.selectedTime);
+
+		this.$el.html(this.renderTime(times));
+		this.$el.append(this.renderPartiers(partiers));
 
 		return this;
 	},
-	renderTime: function(model) {
-		return $('<span class="btn btn-default btn-xs partyTime">' 
-			+ model.get('time') 
+	renderTime: function(times) {
+		var $times = $('<div class="times"></div>'),
+			that = this;
+		_.each(times, function(time) {
+			$times.append('<span class="btn '
+				+ (that.selectedTime === time ? 'btn-primary' : 'btn-default')
+				+ ' btn-xs partyTime">' 
+				+ time
 			+ '</span>');
+		});
+		return $times;
 	},
-	renderPartiers: function(model) {
+	renderPartiers: function(partiers) {
 		var $partiers = $('<span class="partiers"></span>');
-		_.each(model.get('partiers'), function(partier) {
-			$partiers.append('<span class="label label-primary partier">'
-				+ partier + '</span>');
+		_.each(partiers, function(partier) {
+			$partiers.append('<span class="label '
+				+ (partier.entered ? 'label-primary' : 'label-default')
+				+ ' partier">'
+				+ partier.name + '</span>');
 		});
 		return $partiers;
 	},
 	events: {
 		'click .partyTime': 'update'
 	},
-	// updating is just rerendering
-	update: function() {
-		this.index = (this.index + 1) % 3;
+	// updating is just rerendering 
+	update: function(e) {
+		this.selectedTime = parseInt($(e.target).text());
 
 		this.render();
 	}
 });
 
+
+var partyCollection = new PartyCollection();
 var partyView = new PartyView({
+	el: $('.party'),
 	collection: partyCollection
 });
-$('.party').append(partyView.render().el);
+partyCollection.fetch({reset: true});
 
