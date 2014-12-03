@@ -15,15 +15,15 @@ var PartyCollection = Backbone.Collection.extend({
 	getPartiersAtTime: function(time) {
 		return this.chain().groupBy(function(model) {
 			return model.get('partier')
-		}).filter(function(times) {
-			return times[0].get('time') <= time
-				&& (times[1] ? time < times[1].get('time') : true);
-		}).map(function(times) {
+		}).filter(function(actions) {
+			return actions[0].get('time') <= time
+				&& (actions[1] ? time < actions[1].get('time') : true);
+		}).map(function(actions) {
 			return {
-				name: times[0].get('partier'),
-				entered: times[0].get('time') === time
+				name: actions[0].get('partier'),
+				entered: actions[0].get('time') === time
 			};
-		}).value()
+		}).value();
 	}
 });
 
