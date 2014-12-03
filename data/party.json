@@ -1,0 +1,77 @@
+[
+	{
+		"time": 1800,
+		"partier": "Shirley",
+		"action": "enter"
+	},
+	{
+		"time": 1800,
+		"partier": "Clarisse",
+		"action": "enter"
+	},
+	{
+		"time": 1800,
+		"partier": "Katherine",
+		"action": "enter"
+	},
+	{
+		"time": 1900,
+		"partier": "Alex",
+		"action": "enter"
+	},
+	{
+		"time": 2000,
+		"partier": "Allison",
+		"action": "enter"
+	},
+	{
+		"time": 2100,
+		"partier": "Patrick",
+		"action": "enter"
+	},
+	{
+		"time": 2100,
+		"partier": "Diane",
+		"action": "enter"
+	},
+	{
+		"time": 2200,
+		"partier": "Mike",
+		"action": "enter"
+	},
+	{
+		"time": 2200,
+		"partier": "Adam",
+		"action": "enter"
+	},
+	{
+		"time": 2300,
+		"partier": "Shirley",
+		"action": "exit"
+	},
+	{
+		"time": 2300,
+		"partier": "Alex",
+		"action": "exit"
+	},
+	{
+		"time": 2300,
+		"partier": "Zack",
+		"action": "enter"
+	},
+	{
+		"time": 2400,
+		"partier": "Allison",
+		"action": "exit"
+	},
+	{
+		"time": 2400,
+		"partier": "Patrick",
+		"action": "exit"
+	},
+	{
+		"time": 2400,
+		"partier": "Diane",
+		"action": "exit"
+	}
+]
