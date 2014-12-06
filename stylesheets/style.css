@@ -5,3 +5,8 @@
 .partier {
   font-size: .9em;
 }
+
+svg {
+  width: 250px;
+  height: 250px;
+}
