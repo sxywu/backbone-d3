@@ -1,25 +1,43 @@
 <!doctype html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
+  <head>
+    <meta charset="utf-8">
 
-		<title>Intro to D3.js</title>
+    <title>Intro to D3.js</title>
 
-	    <link rel="stylesheet" href="stylesheets/bootstrap.css" type="text/css" />
-  		<link rel="stylesheet" href="stylesheets/style.css">
-	    <script data-main="scripts/main" src="scripts/contrib/require-jquery.js"></script>
+      <link rel="stylesheet" href="stylesheets/bootstrap.css" type="text/css" />
+      <link rel="stylesheet" href="stylesheets/style.css">
+      <script data-main="scripts/main" src="scripts/contrib/require-jquery.js"></script>
 
       <script src="scripts/contrib/underscore.js"></script>
       <script src="scripts/contrib/backbone.js"></script>
       <script src="scripts/contrib/d3.v3.js"></script>
 
-	</head>
+  </head>
 
-	<body>
+  <body>
     <div class="party">
-
+      <select class="selectTime">
+        <option>1800</option>
+        <option>1900</option>
+        <option>2000</option>
+        <option>2100</option>
+        <option>2200</option>
+        <option>2300</option>
+        <option>2400</option>
+      </select>
+      <input class="inputPartier" />
+      <select class="selectAction">
+        <option>enter</option>
+        <option>talk</option>
+        <option>exit</option>
+      </select>
+      <input class="inputPartier2 hidden" />
+      <span class="submitParty btn btn-default">submit</span>
+      <div class="results">
+      </div>
     </div>
-    <script src="scripts/backbone01.js"></script>
-	</body>
+    <script src="scripts/backboned3_01.js"></script>
+  </body>
 </html>
