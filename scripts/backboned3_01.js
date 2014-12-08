@@ -7,15 +7,23 @@ var PartyCollection = Backbone.Collection.extend({
   save: function() {
     localStorage['party'] = JSON.stringify(this.toJSON());
   },
+  clear: function() {
+    delete localStorage['party'];
+    this.reset();
+  },
   getSelectedTime: function() {
     return this.selectedTime || this.getAllTimes()[0] || 1800;
   },
   setSelectedTime: function(time) {
     this.selectedTime = time;
+    this.trigger('change');
   },
   getAllTimes: function() {
     return this.chain().pluck('attributes')
-      .pluck('time').uniq().value();
+      .pluck('time').uniq()
+      .sortBy(function(time) {
+        return time;
+      }).value();
   },
   getGraphAtTime: function(time) {
     var nodes = this.chain().groupBy(function(model) {
@@ -44,7 +52,8 @@ var PartyCollection = Backbone.Collection.extend({
       }).value();
 
     var links = this.chain().filter(function(model) {
-        return model.get('action') === 'talk';
+        return model.get('action') === 'talk'
+          && model.get('time') === time;
       }).map(function(talk) {
         return {
           source: _.find(nodes, function(node) {
@@ -70,10 +79,11 @@ var AppView = Backbone.View.extend({
     this.timeView = new TimeView({
       el: this.$('.times'),
       collection: this.collection
-    })
+    });
   },
   events: {
     "click .submitParty": "submitParty",
+    "click .clearParty": "clearParty",
     "change .selectAction": "actionChanged"
   },
   submitParty: function() {
@@ -92,6 +102,10 @@ var AppView = Backbone.View.extend({
     }
     
     this.collection.add(party);
+    this.collection.save();
+  },
+  clearParty: function() {
+    this.collection.clear();
   },
   actionChanged: function() {
     var action = this.$('.selectAction').val();
@@ -108,7 +122,7 @@ var TimeView = Backbone.View.extend({
     this.collection = this.options.collection;
     this.selectedTime;
 
-    this.collection.on('reset add remove', _.bind(this.render, this));
+    this.collection.on('reset add remove change', _.bind(this.render, this));
   },
   render: function() {
     var times = this.collection.getAllTimes();
@@ -126,14 +140,19 @@ var TimeView = Backbone.View.extend({
       + '</span>');
     });
   },
+  events: {
+    'click .partyTime': 'updateTime'
+  },
   updateTime: function(e) {
+    var selectedTime = parseInt($(e.target).text());
+    this.collection.setSelectedTime(selectedTime);
   }
 });
 
 var GraphView = Backbone.View.extend({
   initialize: function() {
     this.collection = this.options.collection;
-    this.collection.on('reset add remove', _.bind(this.render, this));
+    this.collection.on('reset add remove change', _.bind(this.render, this));
 
     this.d3 = d3.select(this.el);
     this.force = d3.layout.force()
@@ -146,6 +165,7 @@ var GraphView = Backbone.View.extend({
     var selectedTime = this.collection.getSelectedTime(),
       graph = this.collection.getGraphAtTime(selectedTime);
 
+    this.persistPositions(graph.nodes);
     this.renderNodes(graph.nodes);
     this.renderLinks(graph.links);
     this.updateForce(graph.nodes, graph.links);
@@ -157,19 +177,9 @@ var GraphView = Backbone.View.extend({
       });
 
     this.node.enter().append('g')
-      .classed('node', true);
+      .classed('node', true)
+      .call(this.force.drag());
     this.node.exit().remove();
-
-    this.node.append('circle')
-        .attr('r', 10)
-        .attr('fill', function(d) {
-          console.log(d)
-          return d.entered ? '#337ab7' :
-            (d.exit ? '#f0ad4e' : '#fff');
-        }).attr('stroke', function(d) {
-          return d.entered ? '#2e6da4' : 
-            (d.exit ? '#eea236' : '#ccc');
-        }).attr('stroke-width', 2);
 
     this.node.append('text')
       .attr('text-anchor', 'middle')
@@ -178,8 +188,28 @@ var GraphView = Backbone.View.extend({
         return (d.entered || d.exit) ? '#fff' : '#ccc';
       })
       .text(function(d) {
-        return d.name[0];
+        return d.name;
+      }).each(function(d) {
+        d.width = this.getBBox().width + 15;
       });
+
+    this.node.insert('rect', 'text')
+        .attr('width', function(d) {
+          return d.width
+        }).attr('height', 20)
+        .attr('x', function(d) {
+          return -d.width / 2
+        })
+        .attr('y', -10)
+        .attr('rx', 3).attr('ry', 3)
+        .attr('fill', function(d) {
+          console.log(d)
+          return d.entered ? '#337ab7' :
+            (d.exit ? '#f0ad4e' : '#fff');
+        }).attr('stroke', function(d) {
+          return d.entered ? '#2e6da4' : 
+            (d.exit ? '#eea236' : '#ccc');
+        }).attr('stroke-width', 2);
   },
   renderLinks: function(links) {
     this.link = this.d3.selectAll('.link')
@@ -212,6 +242,19 @@ var GraphView = Backbone.View.extend({
       return d.target.x;
     }).attr('y2', function(d) {
       return d.target.y;
+    });
+  },
+  persistPositions: function(nodes) {
+    if (!this.node) return;
+
+    this.node.each(function(d) {
+      var node = _.find(nodes, function(node) {
+        return node.name === d.name;
+      })
+      if (node) {
+        node.x = d.x;
+        node.y = d.y;
+      }
     });
   }
 });
