@@ -72,14 +72,25 @@ var PartyCollection = Backbone.Collection.extend({
 var AppView = Backbone.View.extend({
   initialize: function() {
     this.collection = this.options.collection;
-    this.graphView = new GraphView({
-      el: this.$('.graph'),
-      collection: this.collection
-    });
     this.timeView = new TimeView({
       el: this.$('.times'),
       collection: this.collection
     });
+
+    this.graphVisualization = GraphVisualization()
+      .width(300).height(300);
+    d3.select(this.$('.graph')[0])
+      .call(this.graphVisualization);
+
+    this.collection.on('reset add remove change', _.bind(this.update, this));
+  },
+  update: function() {
+    var selectedTime = this.collection.getSelectedTime(),
+      graphData = this.collection.getGraphAtTime(selectedTime);
+
+    this.graphVisualization
+      .data(graphData)
+      .update();
   },
   events: {
     "click .submitParty": "submitParty",
@@ -149,39 +160,48 @@ var TimeView = Backbone.View.extend({
   }
 });
 
-var GraphView = Backbone.View.extend({
-  initialize: function() {
-    this.collection = this.options.collection;
-    this.collection.on('reset add remove change', _.bind(this.render, this));
+var GraphVisualization = function() {
 
-    this.d3 = d3.select(this.el);
-    this.force = d3.layout.force()
-      .size([250, 250])
-      .charge(-300)
-      .linkDistance(100)
-      .on('tick', _.bind(this.onTick, this));
-  },
-  render: function() {
-    var selectedTime = this.collection.getSelectedTime(),
-      graph = this.collection.getGraphAtTime(selectedTime);
+  var container, node, link, // all d3 selections
+    data = {nodes: [], links: []}, // an object with nodes and links data for the graph
+    force = d3.layout.force(),
+    width = 300, height = 300,
+    charge = -300, linkDistance = 100;
 
-    this.persistPositions(graph.nodes);
-    this.renderNodes(graph.nodes);
-    this.renderLinks(graph.links);
-    this.updateForce(graph.nodes, graph.links);
-  },
-  renderNodes: function(nodes) {
-    this.node = this.d3.selectAll('.node')
-      .data(nodes, function(d) {
+  var Graph = function(selection) {
+    container = selection;
+
+    force.size([width, height])
+      .charge(charge)
+      .linkDistance(linkDistance)
+      .on('tick', tick);
+
+    return Graph;
+  }
+
+  Graph.update = function() {
+    persistPositions();
+
+    updateNode();
+    updateLink();
+
+    force.nodes(data.nodes).links(data.links);
+    force.start();
+  }
+
+  var updateNode = function() {
+    node = container.selectAll('.node')
+      .data(data.nodes, function(d) {
         return d.name;
       });
 
-    this.node.enter().append('g')
+    node.enter().append('g')
       .classed('node', true)
-      .call(this.force.drag());
-    this.node.exit().remove();
+      .call(force.drag());
 
-    this.node.append('text')
+    node.exit().remove();
+
+    node.append('text')
       .attr('text-anchor', 'middle')
       .attr('dy', '.35em')
       .attr('fill', function(d) {
@@ -193,7 +213,7 @@ var GraphView = Backbone.View.extend({
         d.width = this.getBBox().width + 15;
       });
 
-    this.node.insert('rect', 'text')
+    node.insert('rect', 'text')
         .attr('width', function(d) {
           return d.width
         }).attr('height', 20)
@@ -209,31 +229,27 @@ var GraphView = Backbone.View.extend({
           return d.entered ? '#2e6da4' : 
             (d.exit ? '#eea236' : '#ccc');
         }).attr('stroke-width', 2);
-  },
-  renderLinks: function(links) {
-    this.link = this.d3.selectAll('.link')
-      .data(links, function(d) {
+  }
+
+  var updateLink = function() {
+    link = container.selectAll('.link')
+      .data(data.links, function(d) {
         return d.source.name + ',' + d.target.name;
       });
 
-    this.link.enter().insert('line', '.node')
+    link.enter().insert('line', '.node')
       .classed('link', true);
-    this.link.exit().remove();
+    link.exit().remove();
 
-    this.link.attr('stroke', '#ccc')
+    link.attr('stroke', '#ccc')
       .attr('stroke-width', 2);
-  },
-  updateForce: function(nodes, links) {
-    this.force.nodes(nodes)
-      .links(links);
+  }
 
-    this.force.start();
-  },
-  onTick: function() {
-    this.node.attr('transform', function(d) {
+  var tick = function() {
+    node.attr('transform', function(d) {
       return 'translate(' + d.x + ',' + d.y + ')';
     });
-    this.link.attr('x1', function(d) {
+    link.attr('x1', function(d) {
       return d.source.x;
     }).attr('y1', function(d) {
       return d.source.y;
@@ -242,21 +258,42 @@ var GraphView = Backbone.View.extend({
     }).attr('y2', function(d) {
       return d.target.y;
     });
-  },
-  persistPositions: function(nodes) {
-    if (!this.node) return;
+  }
 
-    this.node.each(function(d) {
-      var node = _.find(nodes, function(node) {
+  persistPositions = function() {
+    if (!node) return;
+
+    node.each(function(d) {
+      var n = _.find(data.nodes, function(node) {
         return node.name === d.name;
       })
-      if (node) {
-        node.x = d.x;
-        node.y = d.y;
+      if (n) {
+        n.x = d.x;
+        n.y = d.y;
       }
     });
   }
-});
+
+  Graph.width = function(val) {
+    if (!val) return width;
+    width = val;
+    return Graph; // for chaining purposes
+  }
+
+  Graph.height = function(val) {
+    if (!val) return height;
+    height = val;
+    return Graph; // for chaining purposes
+  }
+
+  Graph.data = function(val) {
+    if (!val) return data;
+    data = val;
+    return Graph; // for chaining purposes
+  }
+
+  return Graph;
+}
 
 var partyCollection = new PartyCollection();
 var appView = new AppView({
