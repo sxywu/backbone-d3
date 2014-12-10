@@ -19,10 +19,9 @@ var PartyCollection = Backbone.Collection.extend({
     this.trigger('change');
   },
   getAllTimes: function() {
-    return this.chain().pluck('attributes')
-      .pluck('time').uniq()
-      .sortBy(function(time) {
-        return time;
+    return _.chain(_.range(18, 25))
+      .map(function(hour) {
+        return hour * 100;
       }).value();
   },
   getGraphAtTime: function(time) {
@@ -72,10 +71,6 @@ var PartyCollection = Backbone.Collection.extend({
 var AppView = Backbone.View.extend({
   initialize: function() {
     this.collection = this.options.collection;
-    this.timeView = new TimeView({
-      el: this.$('.times'),
-      collection: this.collection
-    });
 
     this.graphVisualization = GraphVisualization()
       .width(300).height(300);
@@ -83,6 +78,23 @@ var AppView = Backbone.View.extend({
       .call(this.graphVisualization);
 
     this.collection.on('reset add remove change', _.bind(this.update, this));
+  },
+  render: function() {
+    this.renderTime();
+  },
+  renderTime: function() {
+    this.$('.times').empty();
+
+    var that = this, 
+      times = this.collection.getAllTimes(),
+      selectedTime = this.collection.getSelectedTime();
+    _.each(times, function(time) {
+      that.$('.times').append('<span class="btn '
+        + (selectedTime === time ? 'btn-primary' : 'btn-default')
+        + ' btn-xs partyTime">' 
+        + time
+      + '</span>');
+    });
   },
   update: function() {
     var selectedTime = this.collection.getSelectedTime(),
@@ -95,7 +107,8 @@ var AppView = Backbone.View.extend({
   events: {
     "click .submitParty": "submitParty",
     "click .clearParty": "clearParty",
-    "change .selectAction": "actionChanged"
+    "change .selectAction": "actionChanged",
+    'click .partyTime': 'updateTime'
   },
   submitParty: function() {
     var party = {};
@@ -125,38 +138,11 @@ var AppView = Backbone.View.extend({
     } else {
       this.$('.inputPartier2').addClass('hidden');
     }
-  }
-});
-
-var TimeView = Backbone.View.extend({
-  initialize: function() {
-    this.collection = this.options.collection;
-    this.selectedTime;
-
-    this.collection.on('reset add remove change', _.bind(this.render, this));
-  },
-  render: function() {
-    var times = this.collection.getAllTimes();
-    this.$el.empty();
-    this.renderTime(times);
-  },
-  renderTime: function(times) {
-    var that = this, 
-      selectedTime = this.collection.getSelectedTime();
-    _.each(times, function(time) {
-      that.$el.append('<span class="btn '
-        + (selectedTime === time ? 'btn-primary' : 'btn-default')
-        + ' btn-xs partyTime">' 
-        + time
-      + '</span>');
-    });
-  },
-  events: {
-    'click .partyTime': 'updateTime'
   },
   updateTime: function(e) {
     var selectedTime = parseInt($(e.target).text());
     this.collection.setSelectedTime(selectedTime);
+    this.renderTime();
   }
 });
 

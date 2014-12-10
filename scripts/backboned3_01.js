@@ -16,13 +16,11 @@ var PartyCollection = Backbone.Collection.extend({
   },
   setSelectedTime: function(time) {
     this.selectedTime = time;
-    this.trigger('change');
   },
   getAllTimes: function() {
-    return this.chain().pluck('attributes')
-      .pluck('time').uniq()
-      .sortBy(function(time) {
-        return time;
+    return _.chain(_.range(18, 24))
+      .map(function(hour) {
+        return hour * 100;
       }).value();
   },
   getGraphAtTime: function(time) {
@@ -76,15 +74,29 @@ var AppView = Backbone.View.extend({
       el: this.$('.graph'),
       collection: this.collection
     });
-    this.timeView = new TimeView({
-      el: this.$('.times'),
-      collection: this.collection
+  },
+  render: function() {
+    this.renderTime();
+  },
+  renderTime: function() {
+    this.$('.times').empty();
+
+    var that = this, 
+      times = this.collection.getAllTimes(),
+      selectedTime = this.collection.getSelectedTime();
+    _.each(times, function(time) {
+      that.$('.times').append('<span class="btn '
+        + (selectedTime === time ? 'btn-primary' : 'btn-default')
+        + ' btn-xs partyTime">' 
+        + time
+      + '</span>');
     });
   },
   events: {
     "click .submitParty": "submitParty",
     "click .clearParty": "clearParty",
-    "change .selectAction": "actionChanged"
+    "change .selectAction": "actionChanged",
+    'click .partyTime': 'updateTime'
   },
   submitParty: function() {
     var party = {};
@@ -93,10 +105,6 @@ var AppView = Backbone.View.extend({
     party.partier = this.$('.inputPartier').val();
     party.action = this.$('.selectAction').val();
 
-    // validation for partier being non-empty
-    // validation for talk not being allowed if user hasn't entered
-    // or has already exited
-    // not allowed to exit unless user has already entered
     if (party.action === 'talk') {
       party.partier2 = this.$('.inputPartier2').val();
     }
@@ -114,45 +122,17 @@ var AppView = Backbone.View.extend({
     } else {
       this.$('.inputPartier2').addClass('hidden');
     }
-  }
-});
-
-var TimeView = Backbone.View.extend({
-  initialize: function() {
-    this.collection = this.options.collection;
-    this.selectedTime;
-
-    this.collection.on('reset add remove change', _.bind(this.render, this));
-  },
-  render: function() {
-    var times = this.collection.getAllTimes();
-    this.$el.empty();
-    this.renderTime(times);
-  },
-  renderTime: function(times) {
-    var that = this, 
-      selectedTime = this.collection.getSelectedTime();
-    _.each(times, function(time) {
-      that.$el.append('<span class="btn '
-        + (selectedTime === time ? 'btn-primary' : 'btn-default')
-        + ' btn-xs partyTime">' 
-        + time
-      + '</span>');
-    });
-  },
-  events: {
-    'click .partyTime': 'updateTime'
   },
   updateTime: function(e) {
     var selectedTime = parseInt($(e.target).text());
     this.collection.setSelectedTime(selectedTime);
+    this.renderTime();
   }
 });
 
 var GraphView = Backbone.View.extend({
   initialize: function() {
     this.collection = this.options.collection;
-    this.collection.on('reset add remove change', _.bind(this.render, this));
 
     this.d3 = d3.select(this.el);
     this.force = d3.layout.force()
@@ -169,6 +149,19 @@ var GraphView = Backbone.View.extend({
     this.renderNodes(graph.nodes);
     this.renderLinks(graph.links);
     this.updateForce(graph.nodes, graph.links);
+  },
+  persistPositions: function(nodes) {
+    if (!this.node) return;
+
+    this.node.each(function(d) {
+      var node = _.find(nodes, function(node) {
+        return node.name === d.name;
+      })
+      if (node) {
+        node.x = d.x;
+        node.y = d.y;
+      }
+    });
   },
   renderNodes: function(nodes) {
     this.node = this.d3.selectAll('.node')
@@ -241,19 +234,6 @@ var GraphView = Backbone.View.extend({
       return d.target.x;
     }).attr('y2', function(d) {
       return d.target.y;
-    });
-  },
-  persistPositions: function(nodes) {
-    if (!this.node) return;
-
-    this.node.each(function(d) {
-      var node = _.find(nodes, function(node) {
-        return node.name === d.name;
-      })
-      if (node) {
-        node.x = d.x;
-        node.y = d.y;
-      }
     });
   }
 });

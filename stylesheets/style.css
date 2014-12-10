@@ -1,3 +1,19 @@
+body {
+  font-family: 'Droid Serif', serif;
+}
+
+.page {
+  width: 100%;
+  min-height: 600px;
+  padding: 40px;
+  margin-bottom: 200px;
+}
+
+.page h2 {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
 .partyTime, .partier {
   margin: 10px;
 }
@@ -7,6 +23,31 @@
 }
 
 svg {
-  width: 250px;
-  height: 250px;
+  width: 300px;
+  height: 300px;
+}
+
+pre {
+  background-color: transparent;
+  border: none;
+}
+
+td.fetch, td.render, td.update {
+  border-left-width: 10px;
+  border-left-style: solid;
+}
+
+td.fetch {
+  border-left-color: #428bca;
+  background-color: rgba(66,139,202,.05);
+}
+
+td.render {
+  border-left-color: #5cb85c;
+  background-color: rgba(92,184,92,.05);
+}
+
+td.update {
+  border-left-color: #5bc0de;
+  background-color: rgba(91,192,222,.05);
 }

@@ -1,44 +1,98 @@
 <!doctype html>
 <html lang="en">
 
-  <head>
-    <meta charset="utf-8">
+<head>
+  <meta charset="utf-8">
 
-    <title>Intro to D3.js</title>
+  <title>Intro to D3.js</title>
 
-      <link rel="stylesheet" href="stylesheets/bootstrap.css" type="text/css" />
-      <link rel="stylesheet" href="stylesheets/style.css">
-      <script data-main="scripts/main" src="scripts/contrib/require-jquery.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="stylesheets/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <script data-main="scripts/main" src="scripts/contrib/require-jquery.js"></script>
+    <link href="stylesheets/prism.css" rel="stylesheet" />
 
-      <script src="scripts/contrib/underscore.js"></script>
-      <script src="scripts/contrib/backbone.js"></script>
-      <script src="scripts/contrib/d3.v3.js"></script>
+    <script src="scripts/contrib/underscore.js"></script>
+    <script src="scripts/contrib/backbone.js"></script>
+    <script src="scripts/contrib/d3.v3.js"></script>
 
-  </head>
+</head>
 
-  <body>
-    <div class="party">
-      <select class="selectTime">
-        <option>1800</option>
-        <option>1900</option>
-        <option>2000</option>
-        <option>2100</option>
-        <option>2200</option>
-        <option>2300</option>
-        <option>2400</option>
-      </select>
-      <input class="inputPartier" />
-      <select class="selectAction">
-        <option>enter</option>
-        <option>talk</option>
-        <option>exit</option>
-      </select>
-      <input class="inputPartier2 hidden" />
-      <span class="submitParty btn btn-success">submit</span>
-      <span class="clearParty btn btn-warning">reset</span>
-      <div class="times"></div>
-      <svg class="graph"></svg>
-    </div>
-    <script src="scripts/backboned3_02.js"></script>
-  </body>
+<body>
+
+  <div class="page">
+    <h1>Marrying Backbone.js and D3.js</h1>
+    <h3>Shirley Wu</h3>
+    <h5>(<a href="https://twitter.com/shirleyxywu" target="_new">@shirleyxywu</a>)</h5>
+  </div>
+
+  <div class="page">
+    <h2>So a year ago, I gave a talk:</h2>
+    <blockquote>
+    <iframe width="600" height="400" src="//www.youtube.com/embed/Qh0lx1mRpns?list=UU5HsfP9MfDrYk5g5UykJbGw" frameborder="0" allowfullscreen></iframe>
+    </blockquote>
+    <h2>And someone came up after, and said</h2>
+    <blockquote>
+    <h1>Maybe I'm missing something,</h1>
+    <h1>but it just doesn't seem that difficult.</h1>
+    </blockquote>
+    <h2>And I was like,</h2>
+    <blockquote>
+    <h1>Yup, I totally agree.</h1>
+    <h1>It's really not that difficult.</h1>
+    </blockquote>
+    <h2>But what I <em>do</em> think is difficult is to use them together <em>well</em>.</h2>
+  </div>
+
+  <div class="page">
+    
+    <h2>And there's two reasons for that:</h2>
+    <ol>
+      <h3>
+        <li>They're both opinionated about how data should be 
+          <div class="label label-primary">fetched</div>, 
+          <div class="label label-success">rendered</div>, and 
+          <div class="label label-info">updated</div>.
+        </li>
+      </h3>
+      <h3>
+        <li>Backbone is object-oriented; D3 is functional.</li>
+      </h3>
+    </ol>
+
+  </div>
+
+  <div class="page backbone_01"></div>
+  <div class="page backboned3_01"></div>
+
+    <!--   // validation for partier being non-empty
+    // validation for talk not being allowed if user hasn't entered
+    // or has already exited
+    // not allowed to exit unless user has already entered -->
+  <div class="party">
+    <select class="selectTime">
+      <option>1800</option>
+      <option>1900</option>
+      <option>2000</option>
+      <option>2100</option>
+      <option>2200</option>
+      <option>2300</option>
+      <option>2400</option>
+    </select>
+    <input class="inputPartier" />
+    <select class="selectAction">
+      <option>enter</option>
+      <option>talk</option>
+      <option>exit</option>
+    </select>
+    <input class="inputPartier2 hidden" />
+    <span class="submitParty btn btn-success">submit</span>
+    <span class="clearParty btn btn-warning">reset</span>
+    <div class="times"></div>
+    <svg class="graph"></svg>
+  </div>
+
+
+  <script src="scripts/contrib/prism.js"></script>
+</body>
 </html>
