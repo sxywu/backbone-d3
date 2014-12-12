@@ -22,7 +22,7 @@ d3.json('data/party.json', function(response) {
     selectedTime = allTimes[0],
     partiersAtTime = getPartiersAtTime(response, selectedTime);
 
-  var container = d3.select('.party');
+  var container = d3.select('.party_02');
 
   // first render the times
   var times = container.append('div')
@@ -30,7 +30,7 @@ d3.json('data/party.json', function(response) {
     .selectAll('.partyTime')
     .data(getAllTimes(response));
     
-  times.enter().append('span')
+  times.enter().append('div')
       .classed({
         'partyTime': true,
         'btn': true,
@@ -53,7 +53,7 @@ d3.json('data/party.json', function(response) {
       return partier.name;
     });
 
-  partiers.enter().append('span')
+  partiers.enter().append('div')
       .classed({
         'partier': true,
         'label': true,

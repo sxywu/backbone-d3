@@ -1,10 +1,3 @@
-/*
-simple visualization of partygoers at 6pm, 9pm, 12pm
-written only with Backbone
-*/
-
-
-
 // first, "fetch" the data into a collection
 var PartyCollection = Backbone.Collection.extend({
   url: "data/party.json",
@@ -52,23 +45,23 @@ var PartyView = Backbone.View.extend({
     var $times = $('<div class="times"></div>'),
       that = this;
     _.each(times, function(time) {
-      $times.append('<span class="btn '
+      $times.append('<div class="btn '
         + (that.selectedTime === time ? 'btn-primary' : 'btn-default')
         + ' btn-xs partyTime">' 
         + time
-      + '</span>');
+      + '</div>');
     });
     return $times;
   },
   renderPartiers: function(partiers) {
-    var $partiers = $('<span class="partiers"></span>');
+    var $partiers = $('<div class="partiers"></div>');
     _.each(partiers, function(partier) {
-      $partiers.append('<span class="label ' 
+      $partiers.append('<div class="label ' 
         + (partier.entered ? 'label-primary ' : '')
         + (partier.exit ? 'label-warning ': '')
         + (!partier.entered && !partier.exit ? 'label-default ': '')
         + 'partier">'
-        + partier.name + '</span>');
+        + partier.name + '</div>');
     });
     return $partiers;
   },
@@ -86,8 +79,7 @@ var PartyView = Backbone.View.extend({
 
 var partyCollection = new PartyCollection();
 var partyView = new PartyView({
-  el: $('.party'),
+  el: $('.party_01'),
   collection: partyCollection
 });
 partyCollection.fetch({reset: true});
-

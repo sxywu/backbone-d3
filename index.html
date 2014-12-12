@@ -52,25 +52,37 @@
         <li>They're both opinionated about how data should be 
           <div class="label label-primary">fetched</div>, 
           <div class="label label-success">rendered</div>, and 
-          <div class="label label-info">updated</div>.
+          <div class="label label-info">updated</div>, and
         </li>
       </h3>
       <h3>
-        <li>Backbone is object-oriented; D3 is functional.</li>
+        <li>Backbone is object-oriented, while D3 is functional.</li>
       </h3>
     </ol>
 
   </div>
 
-  <div class="page backbone_01"></div>
-  <div class="page backboned3_01"></div>
+  <div class="page">
+    <h2>Let me set up an example:</h2>
+    <h3>So once in a while, my friends and I like to throw a party.</h3>
+    
+    <table>
 
-    <!--   // validation for partier being non-empty
+    </table>
+    <div class="party_01"></div>
+  </div>
+
+  <div class="page backbone_01"></div>
+
+  <div class="party_02"></div>
+  <div class="page d3_01"></div>
+
+  <!--   // validation for partier being non-empty
     // validation for talk not being allowed if user hasn't entered
     // or has already exited
     // not allowed to exit unless user has already entered -->
-  <div class="party">
-    <select class="selectTime">
+  <div class="party_3">
+    <select class="selectTime form-control">
       <option>1800</option>
       <option>1900</option>
       <option>2000</option>
@@ -79,20 +91,50 @@
       <option>2300</option>
       <option>2400</option>
     </select>
-    <input class="inputPartier" />
-    <select class="selectAction">
+    <input class="inputPartier form-control" />
+    <select class="selectAction form-control">
       <option>enter</option>
       <option>talk</option>
       <option>exit</option>
     </select>
-    <input class="inputPartier2 hidden" />
+    <input class="inputPartier2 form-control hidden" />
     <span class="submitParty btn btn-success">submit</span>
     <span class="clearParty btn btn-warning">reset</span>
     <div class="times"></div>
     <svg class="graph"></svg>
   </div>
+  <div class="page backboned3_01"></div>
+
+  <div class="party_4">
+    <select class="selectTime form-control">
+      <option>1800</option>
+      <option>1900</option>
+      <option>2000</option>
+      <option>2100</option>
+      <option>2200</option>
+      <option>2300</option>
+      <option>2400</option>
+    </select>
+    <input class="inputPartier form-control" />
+    <select class="selectAction form-control">
+      <option>enter</option>
+      <option>talk</option>
+      <option>exit</option>
+    </select>
+    <input class="inputPartier2 form-control hidden" />
+    <span class="submitParty btn btn-success">submit</span>
+    <span class="clearParty btn btn-warning">reset</span>
+    <div class="times"></div>
+    <svg class="graph"></svg>
+  </div>
+  <div class="page backboned3_02"></div>
+
+    
 
 
   <script src="scripts/contrib/prism.js"></script>
+  <script src="scripts/backbone_01.js"></script>
+  <script src="scripts/backboned3_01.js"></script>
+  <script src="scripts/backboned3_02.js"></script>
 </body>
 </html>

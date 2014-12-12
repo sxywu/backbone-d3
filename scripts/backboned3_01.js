@@ -240,7 +240,7 @@ var GraphView = Backbone.View.extend({
 
 var partyCollection = new PartyCollection();
 var appView = new AppView({
-  el: $('.party'),
+  el: $('.party_03'),
   collection: partyCollection
 });
 partyCollection.fetch();

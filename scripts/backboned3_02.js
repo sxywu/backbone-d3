@@ -283,7 +283,7 @@ var GraphVisualization = function() {
 
 var partyCollection = new PartyCollection();
 var appView = new AppView({
-  el: $('.party'),
+  el: $('.party_4'),
   collection: partyCollection
 });
 partyCollection.fetch();
