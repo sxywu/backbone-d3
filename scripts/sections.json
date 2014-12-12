@@ -1,15 +1,19 @@
 {
   "backbone_01": [
     {"range": [1,23], "types": ["backbone", "fetch"],
-    "notes": "Fetch the data with a Backbone <code>Collection</code>, as the data is an array.<br>Specify the <code>url</code> where the data lives, and call <code>fetch</code> on the Collection later on in the code.<br><br>Write some functions to crunch the data, which the Backbone <code>View</code> will use."},
+    "notes": "<div class='label label-primary'>Fetch</div> the data with a Backbone <code>Collection</code>, as the data is an array.<br>Specify the <code>url</code> where the data lives, and call <code>fetch</code> on the Collection later on in the code.<br><br>Write some functions to crunch the data, which the Backbone <code>View</code> will use.<br><br>(This is also where all the validation code will also ideally go, but have been omitted for concision and laziness.)"},
     {"range": [24,28], "types": ["backbone", "render"]},
     {"range": [29,29], "types": ["backbone", "update"],
-    "notes": "Whenever the collection updates, re-<code>render</code>."},
-    {"range": [30,67], "types": ["backbone", "render"]},
-    {"range": [68,78], "types": ["backbone", "update"]},
-    {"range": [79,80], "types": ["backbone", "fetch"]},
-    {"range": [81,84], "types": ["backbone", "render"]},
-    {"range": [85,86], "types": ["backbone", "fetch"]}
+    "notes": "Whenever the collection <div class='label label-info'>update</div>s, re-<code>render</code>."},
+    {"range": [30,67], "types": ["backbone", "render"],
+    "notes": "<br><br><br>Ask <code>Collection</code> for the hours the party starts from and goes until and <div class='label label-success'>render</div> them as buttons with <code>renderTime</code>.<br><br>Then ask <code>Collection</code> for the partiers in the party at the given time.  <div class='label label-success'>Render</div> them as labels."},
+    {"range": [68,79], "types": ["backbone", "update"],
+    "notes": "When another time is selected, save the selected time and <div class='label label-info'>update</div> by re-<code>render</code>ing."},
+    {"range": [80,80], "types": ["backbone", "fetch"],
+    "notes": "Instantiate the <code>Collection</code>."},
+    {"range": [81,84], "types": ["backbone", "render"],
+    "notes": "Instantiate the <code>View</code>."},
+    {"range": [85,85], "types": ["backbone", "fetch"]}
   ],
   "d3_01": [
     {"range": [1,24], "types": ["d3", "fetch"]},
