@@ -14,13 +14,20 @@ body {
   padding-bottom: 40px;
 }
 
+.party_01, .party_02 {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
+
 .times {
   width: 100px;
   display: inline-block;
 }
 
 .partiers {
-  width: 400px;
+  width: 300px;
   display: inline-block;
   margin: 0px 40px;
   vertical-align: top;
@@ -78,6 +85,10 @@ td.render {
 td.update {
   border-left-color: #5bc0de;
   background-color: rgba(91,192,222,.05);
+}
+
+th {
+  text-align: center;
 }
 
 /* overwrite prism bg color*/
