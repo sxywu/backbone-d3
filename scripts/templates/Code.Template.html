@@ -3,6 +3,12 @@
     var range = section.range; %>
   <tr>
 
+  <td class="sectionNotes">
+    <% if (section.notes) { %>
+      <%= section.notes %>
+    <% } %>
+  </td>
+
   <% if (section.types[0] === 'd3') { %>
   <td></td>
   <% } %>
