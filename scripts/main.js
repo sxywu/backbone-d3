@@ -48,7 +48,16 @@ require([
             });
 
             $('.' + key).append(template);
-          })
+
+            Prism.highlightAll();
+          });
         });
+    });
+
+    $.get('data/party.json', function(data) {
+      data = JSON.stringify(data).replace(/\}\,/gi, '\,\n');
+      $('.partyData').text(data);
+
+      Prism.highlightAll();      
     });
 });

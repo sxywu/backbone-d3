@@ -8,10 +8,10 @@
 
     <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="stylesheets/bootstrap.css" type="text/css" />
-    <link rel="stylesheet" href="stylesheets/style.css">
-    <script data-main="scripts/main" src="scripts/contrib/require-jquery.js"></script>
     <link href="stylesheets/prism.css" rel="stylesheet" />
+    <link rel="stylesheet" href="stylesheets/style.css">
 
+    <script data-main="scripts/main" src="scripts/contrib/require-jquery.js"></script>
     <script src="scripts/contrib/underscore.js"></script>
     <script src="scripts/contrib/backbone.js"></script>
     <script src="scripts/contrib/d3.v3.js"></script>
@@ -65,16 +65,30 @@
   <div class="page">
     <h2>Let me set up an example:</h2>
     <h3>So once in a while, my friends and I like to throw a party.</h3>
-    
-    <table>
 
+    <table>
+      <tr>
+        <td><pre>
+          <code class='partyData language-javascript'></code>
+        </pre></td>
+        <td><div class="party_01"></div></td>
+      </tr>
     </table>
-    <div class="party_01"></div>
   </div>
 
   <div class="page backbone_01"></div>
 
-  <div class="party_02"></div>
+  <div class="page">
+    <table>
+      <tr>
+        <td><pre>
+          <code class='partyData language-javascript'></code>
+        </pre></td>
+        <td><div class="party_01"></div></td>
+      </tr>
+    </table>
+  </div>
+
   <div class="page d3_01"></div>
 
   <!--   // validation for partier being non-empty

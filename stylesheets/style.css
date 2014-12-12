@@ -79,3 +79,8 @@ td.update {
   border-left-color: #5bc0de;
   background-color: rgba(91,192,222,.05);
 }
+
+/* overwrite prism bg color*/
+:not(pre) > code[class*="language-"], pre[class*="language-"] {
+background: none;
+}
