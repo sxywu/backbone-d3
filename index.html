@@ -24,6 +24,9 @@
     <h1>Marrying Backbone.js and D3.js</h1>
     <h3>Shirley Wu</h3>
     <h5>(<a href="https://twitter.com/shirleyxywu" target="_new">@shirleyxywu</a>)</h5>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <h3>Slides exist here: <code>sxywu.github.io/backbone-d3</code>  <img src="images/tuzki.gif" /></h3>
   </div>
 
   <div class="page">
@@ -71,8 +74,7 @@
         <th><h3>Real simple app visualizing the ebb of our partiers</h3></th>
       </tr>
       <tr>
-        <td><pre>
-          <code class='partyData language-javascript'></code>
+        <td><pre><code class='partyData language-javascript'></code>
         </pre></td>
         <td><div class="party_01"></div></td>
       </tr>
@@ -89,11 +91,59 @@
     <div class="page d3_01"></div>
   </div>
 
-  <!--   // validation for partier being non-empty
-    // validation for talk not being allowed if user hasn't entered
-    // or has already exited
-    // not allowed to exit unless user has already entered -->
-  <div class="party_3">
+  <div class="page">
+    <table>
+      <tr>
+        <th><h3>Backbone.js</h3></th>
+        <th><h3>D3.js</h3></th>
+      </tr>
+      <tr>
+        <td>
+          <h4>Data may change through user input.
+          </h4>
+          <h4>Data may need to be persisted across sessions.
+        </td>
+        <td>
+          <h4>Visualize data, and transitioning between different states of data.</h4>
+          <h4>User input doesn't usually affect the data displayed.
+          </h4>
+        </td>
+      </tr>
+      <tr>
+        <td class="backbone fetch">
+          <h4><code>Models</code> and <code>Collections</code> for <em>managing</em> data: <code>fetch</code>, <code>save</code>, <code>destroy</code>
+          </h4> 
+        </td>
+        <td class="d3 fetch">
+          <h4><code>d3.xhr.get</code>, <code>d3.json</code>, <code>d3.csv</code>, etc. to fetch.
+          </h4>
+          <h4><code>d3.xhr.post</code> to persist (but I very rarely see it used).
+          </h4>
+        </td>
+      </tr>
+      <tr>
+        <td class="backbone render">
+          <h4>
+          </h4>
+        </td>
+        <td class="d3 render">
+          <h4>
+          </h4>
+        </td>
+      </tr>
+      <tr>
+        <td class="backbone update">
+          <h4>
+          </h4>
+        </td>
+        <td class="d3 update">
+          <h4>
+          </h4>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="page party_3">
     <select class="selectTime form-control">
       <option>1800</option>
       <option>1900</option>
@@ -114,10 +164,10 @@
     <span class="clearParty btn btn-warning">reset</span>
     <div class="times"></div>
     <svg class="graph"></svg>
+    <div class="backboned3_01"></div>
   </div>
-  <div class="page backboned3_01"></div>
 
-  <div class="party_4">
+  <div class="page party_4">
     <select class="selectTime form-control">
       <option>1800</option>
       <option>1900</option>
@@ -138,9 +188,12 @@
     <span class="clearParty btn btn-warning">reset</span>
     <div class="times"></div>
     <svg class="graph"></svg>
+    <div class="backboned3_02"></div>
   </div>
-  <div class="page backboned3_02"></div>
 
+  <div class="page">
+  <h2>Thank you for having me, Backbone.conf!  <img src="images/tuzki2.gif" /></h2>
+  </div>
     
 
 

@@ -10,14 +10,16 @@
     {"range": [68,79], "types": ["backbone", "update"],
     "notes": "When another time is selected, save the selected time and <div class='label label-info'>update</div> by re-<code>render</code>ing."},
     {"range": [80,80], "types": ["backbone", "fetch"],
-    "notes": "Instantiate the <code>Collection</code>."},
+    "notes": "Instantiate the <code>Collection</code>, because OOP."},
     {"range": [81,84], "types": ["backbone", "render"],
-    "notes": "Instantiate the <code>View</code>."},
+    "notes": "Instantiate the <code>View</code>, because OOP."},
     {"range": [85,85], "types": ["backbone", "fetch"]}
   ],
   "d3_01": [
-    {"range": [1,24], "types": ["d3", "fetch"]},
-    {"range": [25, 72], "types": ["d3", "render"]},
+    {"range": [1,24], "types": ["d3", "fetch"],
+    "notes": "<div class='label label-primary'>Fetch</div> party data with <code>d3.json</code>, which passes back the response as a Javascript object.<br><br>The code to calculate the times and attending partiers are almost exactly the same as in the Backbone case."},
+    {"range": [25, 72], "types": ["d3", "render"],
+    "notes": "Here's where things get different.<br><br>One of the key concepts of D3 is <code>data</code> binding.  We take a set of DOM elements, and bind the first element in the data array to the first in the DOM selection, etc.<br><br>You might have noticed - there aren't any <code>.partyTime</code> that exist yet.  So we use the second key concept of D3;  Then we <code>enter</code> the DOM "},
     {"range": [73,112], "types": ["d3", "update"]}
   ],
   "backboned3_01": [

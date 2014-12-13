@@ -55,7 +55,7 @@ require([
     });
 
     $.get('data/party.json', function(data) {
-      data = JSON.stringify(data).replace(/\}\,/gi, '\,\n');
+      data = JSON.stringify(data).replace(/\}\,/g, '\,\n');
       $('.partyData').text(data);
 
       Prism.highlightAll();      

@@ -91,6 +91,7 @@ td.sectionNotes {
   font-size: 18px;
   padding: 20px;
   vertical-align: top;
+  max-width: 600px;
 }
 
 th {

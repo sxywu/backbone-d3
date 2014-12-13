@@ -14,7 +14,7 @@
   <% } %>
 
   <td class="<%= section.types[0] %> <%= section.types[1] %>">
-    <pre><code class='language-javascript'><% _.each(_.range(range[0], range[1] + 1), function(line) { %><%- lines[line - 1] %>
+    <pre data-line="1"><code class='language-javascript'><% _.each(_.range(range[0], range[1] + 1), function(line) { %><%- lines[line - 1] %>
 <% });%></code></pre>
   </td>
 
