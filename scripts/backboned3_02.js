@@ -97,7 +97,8 @@ var AppView = Backbone.View.extend({
     });
   },
   update: function() {
-    var graphData = this.collection.getGraphAtTime(selectedTime);
+    var selectedTime = this.collection.getSelectedTime(),
+      graphData = this.collection.getGraphAtTime(selectedTime);
 
     this.graphVisualization
       .data(graphData)
@@ -146,7 +147,7 @@ var AppView = Backbone.View.extend({
 var GraphVisualization = function() {
 
   var container, node, link, // all d3 selections
-    data = {nodes: [], links: []}, // an object with nodes and links data for the graph
+    data = {nodes: [], links: []},
     force = d3.layout.force(),
     width = 300, height = 300,
     charge = -300, linkDistance = 100;

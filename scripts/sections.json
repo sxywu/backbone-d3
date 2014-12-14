@@ -34,6 +34,18 @@
     {"range": [250, 250], "types": ["backbone", "fetch"]}
   ],
   "backboned3_02": [
-    {"range": [1,70], "types": ["backbone", "fetch"]}
+    {"range": [1,70], "types": ["backbone", "fetch"]},
+    {"range": [71,74], "types": ["backbone", "render"]},
+    {"range": [75,79], "types": ["d3", "render"]},
+    {"range": [80,98], "types": ["backbone", "render"]},
+    {"range": [99,102], "types": ["backbone", "update"]},
+    {"range": [103,106], "types": ["d3", "update"]},
+    {"range": [107,146], "types": ["backbone", "update"]},
+    {"range": [147,165], "types": ["d3", "render"]},
+    {"range": [166,260], "types": ["d3", "update"]},
+    {"range": [261,281], "types": ["d3", "render"]},
+    {"range": [282,282], "types": ["backbone", "fetch"]},
+    {"range": [283,286], "types": ["backbone", "render"]},
+    {"range": [287,287], "types": ["backbone", "fetch"]}
   ]
 }
