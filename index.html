@@ -44,7 +44,7 @@
     <h1>Yup, I totally agree.</h1>
     <h1>It's really not that difficult.</h1>
     </blockquote>
-    <h2>But what I <em>do</em> think is difficult is to use them together <em>well</em>.</h2>
+    <h2>But what I <em>do</em> think is challenging (and interesting) is to use them together <em>well</em>.</h2>
   </div>
 
   <div class="page">
@@ -92,6 +92,10 @@
   </div>
 
   <div class="page">
+    <h2>Some more examples of D3:</h2>
+  </div>
+
+  <div class="page comparison">
     <table>
       <tr>
         <th><h3>Backbone.js</h3></th>
@@ -104,7 +108,7 @@
           <h4>Data may need to be persisted across sessions.
         </td>
         <td>
-          <h4>Visualize data, and transitioning between different states of data.</h4>
+          <h4>Visualize data, transition between different states of data.</h4>
           <h4>User input doesn't usually affect the data displayed.
           </h4>
         </td>
@@ -124,25 +128,34 @@
       <tr>
         <td class="backbone render">
           <h4>
+          <code>Views</code> wrap around DOM elements
           </h4>
         </td>
         <td class="d3 render">
           <h4>
+          <code>d3.select</code> or <code>d3.selectAll</code> for selecting DOM elements</h4>
+          <h4><code>.data</code> to bind data to selected elements
           </h4>
+          <h4><code>.enter</code> to create elements from bound data
         </td>
       </tr>
       <tr>
         <td class="backbone update">
           <h4>
+          <code>Views</code> subscribe to <code>Model</code> <code>change</code> events, which usually trigger re-<code>render</code>
           </h4>
         </td>
         <td class="d3 update">
-          <h4>
+          <h4>re-fetch data, or render next set of data
           </h4>
+          <h4><code>enter</code>-update-<code>exit</code>
         </td>
       </tr>
     </table>
+    <h2>Backbone + D3: complex web app where user input effects the data visualized</h2>
   </div>
+  
+
   <div class="page party_3">
     <select class="selectTime form-control">
       <option>1800</option>
@@ -192,7 +205,7 @@
   </div>
 
   <div class="page">
-  <h2>Thank you for having me, Backbone.conf!  <img src="images/tuzki2.gif" /></h2>
+  <h2>Thank you for having me  <img src="images/tuzki2.gif" /></h2>
   </div>
     
 
@@ -200,6 +213,5 @@
   <script src="scripts/contrib/prism.js"></script>
   <script src="scripts/backbone_01.js"></script>
   <script src="scripts/backboned3_01.js"></script>
-  <script src="scripts/backboned3_02.js"></script>
 </body>
 </html>
