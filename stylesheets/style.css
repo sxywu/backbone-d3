@@ -48,7 +48,7 @@ body {
   font-size: .9em;
 }
 
-.comparison td {
+.comparison td, .partyExample td {
   padding: 10px 20px;
   width: 50%;
 }
