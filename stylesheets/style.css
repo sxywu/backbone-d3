@@ -52,6 +52,11 @@ body {
   width: 50%;
 }
 
+.d3examples {
+  height: 250px;
+  margin-top: 10px;
+}
+
 svg {
   width: 300px;
   height: 300px;
