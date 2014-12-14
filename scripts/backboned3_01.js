@@ -16,6 +16,7 @@ var PartyCollection = Backbone.Collection.extend({
   },
   setSelectedTime: function(time) {
     this.selectedTime = time;
+    this.trigger('change');
   },
   getAllTimes: function() {
     return _.chain(_.range(18, 24))
@@ -74,6 +75,8 @@ var AppView = Backbone.View.extend({
       el: this.$('.graph'),
       collection: this.collection
     });
+    
+    this.collection.on('reset add remove change', this.render, this);
   },
   render: function() {
     this.renderTime();
@@ -126,7 +129,6 @@ var AppView = Backbone.View.extend({
   updateTime: function(e) {
     var selectedTime = parseInt($(e.target).text());
     this.collection.setSelectedTime(selectedTime);
-    this.renderTime();
   }
 });
 
@@ -140,6 +142,8 @@ var GraphView = Backbone.View.extend({
       .charge(-300)
       .linkDistance(100)
       .on('tick', _.bind(this.onTick, this));
+
+    this.collection.on('reset add remove change', this.render, this);
   },
   render: function() {
     var selectedTime = this.collection.getSelectedTime(),
@@ -240,7 +244,7 @@ var GraphView = Backbone.View.extend({
 
 var partyCollection = new PartyCollection();
 var appView = new AppView({
-  el: $('.party_03'),
+  el: $('.party_3'),
   collection: partyCollection
 });
 partyCollection.fetch();

@@ -25,13 +25,13 @@
   "backboned3_01": [
     {"range": [1,69], "types": ["backbone", "fetch"]},
     {"range": [70,136], "types": ["backbone", "render"]},
-    {"range": [137,142], "types": ["d3", "render"]},
-    {"range": [143,165], "types": ["backbone", "render"]},
-    {"range": [166,218], "types": ["d3", "render"]},
-    {"range": [219, 240], "types": ["d3", "update"]},
-    {"range": [240, 241], "types": ["backbone", "fetch"]},
-    {"range": [242, 245], "types": ["backbone", "render"]},
-    {"range": [245, 246], "types": ["backbone", "fetch"]}
+    {"range": [139,144], "types": ["d3", "render"]},
+    {"range": [145,169], "types": ["backbone", "render"]},
+    {"range": [170,222], "types": ["d3", "render"]},
+    {"range": [223, 244], "types": ["d3", "update"]},
+    {"range": [245, 245], "types": ["backbone", "fetch"]},
+    {"range": [246, 249], "types": ["backbone", "render"]},
+    {"range": [250, 250], "types": ["backbone", "fetch"]}
   ],
   "backboned3_02": [
     {"range": [1,70], "types": ["backbone", "fetch"]}

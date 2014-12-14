@@ -97,12 +97,13 @@ var AppView = Backbone.View.extend({
     });
   },
   update: function() {
-    var selectedTime = this.collection.getSelectedTime(),
-      graphData = this.collection.getGraphAtTime(selectedTime);
+    var graphData = this.collection.getGraphAtTime(selectedTime);
 
     this.graphVisualization
       .data(graphData)
       .update();
+
+    this.renderTime();
   },
   events: {
     "click .submitParty": "submitParty",
@@ -117,10 +118,6 @@ var AppView = Backbone.View.extend({
     party.partier = this.$('.inputPartier').val();
     party.action = this.$('.selectAction').val();
 
-    // validation for partier being non-empty
-    // validation for talk not being allowed if user hasn't entered
-    // or has already exited
-    // not allowed to exit unless user has already entered
     if (party.action === 'talk') {
       party.partier2 = this.$('.inputPartier2').val();
     }
