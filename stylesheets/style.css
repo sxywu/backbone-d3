@@ -53,9 +53,13 @@ body {
   width: 50%;
 }
 
-.d3examples {
+.d3examples, .reusableExamples, .reusableExamplesLarge {
   height: 250px;
   margin-top: 10px;
+}
+
+.reusableExamplesLarge {
+  height: 350px;
 }
 
 .party_3_results {
