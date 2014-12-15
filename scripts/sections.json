@@ -19,8 +19,9 @@
     {"range": [1,24], "types": ["d3", "fetch"],
     "notes": "<div class='label label-primary'>Fetch</div> party data with <code>d3.json</code>, which passes back the response as a Javascript object.<br><br>The code to calculate the times and attending partiers are almost exactly the same as in the Backbone case."},
     {"range": [25, 72], "types": ["d3", "render"],
-    "notes": "Here's where things get different.<br><br>One of the key concepts of D3 is <code>data</code> binding.  We take a set of DOM elements, and bind the first element in the data array to the first in the DOM selection, etc.<br><br>You might have noticed - there aren't any <code>.partyTime</code> that exist yet.  So we use the second key concept of D3;  Then we <code>enter</code> the DOM "},
-    {"range": [73,112], "types": ["d3", "update"]}
+    "notes": "Here's where things are different.<br><br>One of the key concepts of D3 is <code>data</code> binding.  We take a set of DOM elements, and bind the first element in the data array to the first in the DOM selection, etc.<br><br>You might have also noticed - there aren't any <code>.partyTime</code> elements that exist at first.  We use <code>enter</code> coupled with <code>append</code> to create as many <code>.partyTime</code> elements as there are extra elements in the data array."},
+    {"range": [73,112], "types": ["d3", "update"],
+    "notes": "<div class='label label-info'>Updating</div> with D3 is very different also; we use a concept called <code>enter</code>-update-<code>exit</code>.<br><br>With <code>enter</code>, we append the elements in the data that don't exist in the DOM.<br><br>With <code>exit</code>, we <code>remove</code> any DOM elements that no longer exist in the data array.<br><br>And for any changes in attribute, we can use one of the following D3 functions to update: <code>.attr</code>, <code>.style</code>, <code>.text</code>, etc."}
   ],
   "backboned3_01": [
     {"range": [1,69], "types": ["backbone", "fetch"]},
