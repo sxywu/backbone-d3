@@ -5,6 +5,8 @@
         return range[0] <= highlight[0] && highlight[0] <= range[1]
           && (highlight[1] ? highlight[1] <= range[1] : true);
         });
+
+    if (toggleHighlight && !dataLines.length) return;
      %>
   <tr>
 
@@ -24,16 +26,16 @@
       _.each(dataLines, function(range) {
         if (!range[1]) {
           %><%- lines[range[0] - 1] %>
-        <% } else {
+<% } else {
           _.each(_.range(range[0], range[1] + 1), function(line) {
             %><%- lines[line - 1] %>
-          <% });
+<% });
         }
       });
     } else {
      _.each(_.range(range[0], range[1] + 1), function(line) {
       %><%- lines[line - 1] %>
-    <% });
+<% });
     } %></code></pre>
   </td>
 
