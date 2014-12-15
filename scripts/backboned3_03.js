@@ -33,7 +33,8 @@ var GraphCollection = Backbone.Collection.extend({
     this.parentCollection.on('reset add remove change', this.calculateGraph, this);
   },
   calculateGraph: function() {
-    var time = this.parentCollection.getSelectedTime();
+    var time = this.parentCollection.getSelectedTime(),
+      that = this;
 
     var nodes = this.parentCollection.chain()
       .groupBy(function(model) {
@@ -70,12 +71,8 @@ var GraphCollection = Backbone.Collection.extend({
       }).map(function(talk) {
         return {
           type: 'link',
-          source: _.find(nodes, function(node) {
-            return node.name === talk.get('partier');
-          }),
-          target: _.find(nodes, function(node) {
-            return node.name === talk.get('partier2');
-          })
+          source: talk.get('partier'),
+          target: talk.get('partier2')
         }
       }).value();
 
@@ -83,13 +80,17 @@ var GraphCollection = Backbone.Collection.extend({
   },
   getNodes: function() {
     return this.filter(function(model) {
-      return model.get('type') === 'node'
+      return model.get('type') === 'node';
     });
   },
   getLinks: function() {
-    return this.filter(function(model) {
-      return model.get('type') === 'links'
-    });
+    return this.chain().filter(function(model) {
+      return model.get('type') === 'link'
+        && !_.isString(model.get('source'))
+        && !_.isString(model.get('target'));
+    }).map(function(model) {
+      return model.toJSON();
+    }).value();
   }
 });
 
@@ -134,8 +135,15 @@ var AppView = Backbone.View.extend({
         model.on('change', function() {
           that.graphVisualization.updateNode(undefined, model);
         });
+      } else if (model.get('type') === 'link') {
+        // first expand the source and target before we can add the link
+        var source = model.get('source'),
+          target = model.get('target');
+        model.set('source', that.graphCollection.get(source), {silent: true});
+        model.set('target', that.graphCollection.get(target), {silent: true});
+
+        that.graphVisualization.addLink(model);
       }
-      
     });
 
     this.update();
@@ -147,6 +155,8 @@ var AppView = Backbone.View.extend({
     _.each(models, function(model) {
       if (model.get('type') === 'node') {
         that.graphVisualization.removeNode(model);
+      } else if (model.get('type') === 'link') {
+        that.graphVisualization.removeLink(model);
       }
       
       model.off('change');
@@ -217,11 +227,6 @@ var GraphVisualization = function() {
     return Graph;
   }
 
-  Graph.update = function(nodes, links) {
-    force.nodes(nodes).links(links);
-    force.start();
-  }
-
   Graph.addNode = function(model) {
     node = container.append('g')
       .datum(model)
@@ -277,23 +282,29 @@ var GraphVisualization = function() {
 
   Graph.removeNode = function(model) {
     container.selectAll('.node')
+      .filter(function(data) {
+        return model === data;
+      }).remove();
+  }
+
+  Graph.addLink = function(model) {
+    container.insert('line', '.node')
+      .datum(model)
+      .classed('link', true)
+      .attr('stroke', '#ccc')
+      .attr('stroke-width', 2);
+  }
+
+  Graph.removeLink = function(model) {
+    container.selectAll('.link')
         .filter(function(data) {
           return model === data;
         }).remove();
   }
 
-  var updateLink = function() {
-    link = container.selectAll('.link')
-      .data(data.links, function(d) {
-        return d.source.name + ',' + d.target.name;
-      });
-
-    link.enter().insert('line', '.node')
-      .classed('link', true);
-    link.exit().remove();
-
-    link.attr('stroke', '#ccc')
-      .attr('stroke-width', 2);
+  Graph.update = function(nodes, links) {
+    force.nodes(nodes).links(links);
+    force.start();
   }
 
   var tick = function() {
@@ -307,11 +318,11 @@ var GraphVisualization = function() {
     container.selectAll('.link')
       .attr('x1', function(model) {
         return model.get('source').get('x');
-      }).attr('y1', function(d) {
+      }).attr('y1', function(model) {
         return model.get('source').get('y');
-      }).attr('x2', function(d) {
+      }).attr('x2', function(model) {
         return model.get('target').get('x');
-      }).attr('y2', function(d) {
+      }).attr('y2', function(model) {
         return model.get('target').get('y');
       });
   }
