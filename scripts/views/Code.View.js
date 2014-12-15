@@ -13,13 +13,14 @@ define([
     initialize: function() {
       this.lines = this.options.lines;
       this.sections = this.options.sections;
-      this.higlights = this.options.highlights;
+      this.highlights = this.options.highlights;
     },
     render: function() {
       var template = _.template(CodeTemplate, {
         sections: this.sections, 
         lines: this.lines,
-        highlights: this.highlights
+        highlights: this.highlights,
+        toggleHighlight: true
       });
 
       this.$el.html(template);

@@ -1,6 +1,11 @@
 <table>
   <% _.each(sections, function(section) { 
-    var range = section.range; %>
+    var range = section.range;
+    var dataLines = _.filter(highlights, function(highlight) {
+        return range[0] <= highlight[0] && highlight[0] <= range[1]
+          && (highlight[1] ? highlight[1] <= range[1] : true);
+        });
+     %>
   <tr>
 
   <td class="sectionNotes">
@@ -14,8 +19,22 @@
   <% } %>
 
   <td class="<%= section.types[0] %> <%= section.types[1] %>">
-    <pre><code class='language-javascript'><% _.each(_.range(range[0], range[1] + 1), function(line) { %><%- lines[line - 1] %>
-<% });%></code></pre>
+    <pre><code class='language-javascript'><%
+    if (toggleHighlight) {
+      _.each(dataLines, function(range) {
+        if (!range[1]) {
+          %><%- lines[range[0] - 1] %>
+        <% } else {
+          _.each(_.range(range[0], range[1] + 1), function(line) {
+            %><%- lines[line - 1] %>
+          <% });
+        }
+      });
+    } else {
+     _.each(_.range(range[0], range[1] + 1), function(line) {
+      %><%- lines[line - 1] %>
+    <% });
+    } %></code></pre>
   </td>
 
   </tr>

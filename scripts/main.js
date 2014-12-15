@@ -46,7 +46,7 @@ require([
                     el: $('.' + key),
                     lines: lines,
                     sections: sections,
-                    highlights: highlights
+                    highlights: highlights[key]
                 });
 
                 codeView.render();
