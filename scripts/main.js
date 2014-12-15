@@ -28,29 +28,30 @@ require([
     "jquery",
     "underscore",
     "backbone",
-    "text!app/templates/Code.Template.html"
+    "app/views/Code.View"
 ], function(
     $,
     _,
     Backbone,
-    CodeTemplate
+    CodeView
 ) {
     app = {};
 
     $.get('scripts/sections.json', function(allSections) {
-        _.each(allSections, function(sections, key) {
-          $.get('scripts/' + key + '.js', function(file) {
-            var lines = file.split(/\n/);
+        $.get('scripts/highlights.json', function(highlights) {
+            _.each(allSections, function(sections, key) {
+              $.get('scripts/' + key + '.js', function(file) {
+                var lines = file.split(/\n/);
+                var codeView = new CodeView({
+                    el: $('.' + key),
+                    lines: lines,
+                    sections: sections,
+                    highlights: highlights
+                });
 
-            var template = _.template(CodeTemplate, {
-              sections: sections, 
-              lines: lines
+                codeView.render();
+              });
             });
-
-            $('.' + key).append(template);
-
-            Prism.highlightAll();
-          });
         });
     });
 
