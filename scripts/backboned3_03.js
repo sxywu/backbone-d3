@@ -100,6 +100,7 @@ var AppView = Backbone.View.extend({
 
     this.collection.on('reset add remove change', this.render, this);
     this.graphCollection.on('reset add', this.addToGraph, this);
+    this.graphCollection.on('remove', this.removeFromGraph, this);
 
     this.graphVisualization = GraphVisualization()
       .width(300).height(300);
@@ -130,10 +131,25 @@ var AppView = Backbone.View.extend({
     _.each(models, function(model) {
       if (model.get('type') === 'node') {
         that.graphVisualization.addNode(model);
+        model.on('change', function() {
+          that.graphVisualization.updateNode(undefined, model);
+        });
       }
-      model.on('change', function() {
-        console.log(model);
-      });
+      
+    });
+
+    this.update();
+  },
+  removeFromGraph: function(models) {
+    models = _.isArray(models) ? models : [models];
+
+    var that = this;
+    _.each(models, function(model) {
+      if (model.get('type') === 'node') {
+        that.graphVisualization.removeNode(model);
+      }
+      
+      model.off('change');
     });
 
     this.update();
@@ -226,7 +242,13 @@ var GraphVisualization = function() {
 
   }
 
-  Graph.updateNode = function(node) {
+  Graph.updateNode = function(node, model) {
+    if (!node) {
+      node = container.selectAll('.node')
+        .filter(function(data) {
+          return model === data;
+        });
+    }
 
     node.select('text')
       .attr('fill', function(model) {
@@ -251,6 +273,13 @@ var GraphVisualization = function() {
           return model.get('entered') ? '#2e6da4' : 
             (model.get('exit') ? '#eea236' : '#ccc');
         }).attr('stroke-width', 2);
+  }
+
+  Graph.removeNode = function(model) {
+    container.selectAll('.node')
+        .filter(function(data) {
+          return model === data;
+        }).remove();
   }
 
   var updateLink = function() {
