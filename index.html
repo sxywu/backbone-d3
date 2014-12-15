@@ -32,7 +32,7 @@
   <div class="page">
     <h2>So a year ago, I gave a talk:</h2>
     <blockquote>
-    <iframe width="600" height="400" src="//www.youtube.com/embed/Qh0lx1mRpns?list=UU5HsfP9MfDrYk5g5UykJbGw" frameborder="0" allowfullscreen></iframe>
+    <!-- <iframe width="600" height="400" src="//www.youtube.com/embed/Qh0lx1mRpns?list=UU5HsfP9MfDrYk5g5UykJbGw" frameborder="0" allowfullscreen></iframe> -->
     </blockquote>
     <h2>And someone came up after, and said</h2>
     <blockquote>
@@ -81,15 +81,17 @@
     </table>
   </div>
 
-  <div class="page">
+  <div class="page backbone_01">
     <h2>Here's the code with Backbone:</h2>
-    <div class="backbone_01"></div>
+    <div class="codeSample"></div>
+  </div>
+
+  <div class="page d3_01">
+    <h2>And the code with D3 <div class="btn btn-default conciseMode">in Concise mode!</div>:</h2>
+    <div class="codeSample"></div>
   </div>
 
   <div class="page">
-    <h2>And the code with D3:</h2>
-    <div class="page d3_01"></div>
-
     <h2>Some more examples of D3:</h2>
     <a href="http://bl.ocks.org/mbostock/1256572" target="_new"><img src="images/demo_reel.png" class="d3examples"></a>
     <a href="http://bl.ocks.org/mbostock/4062045" target="_new"><img src="images/force_graph.png" class="d3examples"></a>
@@ -162,8 +164,8 @@
   </div>
   
 
-  <div class="page party_3">
-    <h2>Attempt #1: Injecting Backbone</h2>
+  <div class="page party_3 backboned3_01">
+    <h2>Attempt #1: Injecting Backbone <div class="btn btn-default conciseMode">in Concise mode!</div></h2>
     <select class="selectTime form-control">
       <option>1800</option>
       <option>1900</option>
@@ -186,11 +188,52 @@
       <div class="times"></div>
       <svg class="graph"></svg>
     </div>
-    <div class="backboned3_01"></div>
+    <div class="codeSample"></div>
+    <h4>For more details: <a href="http://shirley.quora.com/Marrying-Backbone-js-and-D3-js" target="_new">shirley.quora.com <span class="glyphicon glyphicon-new-window"></span></a></h4>
   </div>
 
-  <div class="page party_4">
-    <div class="backboned3_02"></div>
+  <div class="page party_4 backboned3_02">
+    <h2>Attempt #2: Reusable D3 Charts</h2>
+    <select class="selectTime form-control">
+      <option>1800</option>
+      <option>1900</option>
+      <option>2000</option>
+      <option>2100</option>
+      <option>2200</option>
+      <option>2300</option>
+      <option>2400</option>
+    </select>
+    <input class="inputPartier form-control" />
+    <select class="selectAction form-control">
+      <option>enter</option>
+      <option>talk</option>
+      <option>exit</option>
+    </select>
+    <input class="inputPartier2 form-control hidden" />
+    <span class="submitParty btn btn-success">submit</span>
+    <span class="clearParty btn btn-warning">reset</span>
+    <div class="party_3_results">
+      <div class="times"></div>
+      <svg class="graph"></svg>
+    </div>
+    <div class="codeSample"></div>
+  </div>
+
+  <div class="page">
+    <h2>Some Reusable D3 examples:</h2>
+    <a href="https://github.com/sxywu/80k" target="_new"><img src="images/80k.png" class="reusableExamples" /></a>
+    <br>
+    <a href="https://github.com/sxywu/octokitty" target="_new"><img src="images/octokitten.png" class="reusableExamplesLarge" /></a>
+    <a href="https://www.illumio.com" target="_new"><img src="images/illumination2.png" class="reusableExamplesLarge" /></a>
+    <br>
+    <br>
+    <h4>For more details: <a href="http://shirley.quora.com/Marrying-Backbone-js-and-D3-js-a-Follow-up" target="_new">shirley.quora.com <span class="glyphicon glyphicon-new-window"></span></a></h4>
+  </div>
+
+  <div class="page backboned3_03">
+    <h2>Attempt #3 (It's Ugly):</h2>
+    <div class="codeSample"></div>
+    
   </div>
 
   <div class="page">

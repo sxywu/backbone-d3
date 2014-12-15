@@ -149,34 +149,22 @@ var GraphView = Backbone.View.extend({
     var selectedTime = this.collection.getSelectedTime(),
       graph = this.collection.getGraphAtTime(selectedTime);
 
-    this.persistPositions(graph.nodes);
+    this.$el.empty();
     this.renderNodes(graph.nodes);
     this.renderLinks(graph.links);
-    this.updateForce(graph.nodes, graph.links);
-  },
-  persistPositions: function(nodes) {
-    if (!this.node) return;
 
-    this.node.each(function(d) {
-      var node = _.find(nodes, function(node) {
-        return node.name === d.name;
-      })
-      if (node) {
-        node.x = d.x;
-        node.y = d.y;
-      }
-    });
+    this.force.nodes(graph.nodes)
+      .links(graph.links);
+
+    this.force.start();
   },
   renderNodes: function(nodes) {
     this.node = this.d3.selectAll('.node')
       .data(nodes, function(d) {
         return d.name;
-      });
-
-    this.node.enter().append('g')
+      }).enter().append('g')
       .classed('node', true)
       .call(this.force.drag());
-    this.node.exit().remove();
 
     this.node.append('text')
       .attr('text-anchor', 'middle')
@@ -191,40 +179,30 @@ var GraphView = Backbone.View.extend({
       });
 
     this.node.insert('rect', 'text')
-        .attr('width', function(d) {
-          return d.width
-        }).attr('height', 20)
-        .attr('x', function(d) {
-          return -d.width / 2
-        })
-        .attr('y', -10)
-        .attr('rx', 3).attr('ry', 3)
-        .attr('fill', function(d) {
-          return d.entered ? '#337ab7' :
-            (d.exit ? '#f0ad4e' : '#fff');
-        }).attr('stroke', function(d) {
-          return d.entered ? '#2e6da4' : 
-            (d.exit ? '#eea236' : '#ccc');
-        }).attr('stroke-width', 2);
+      .attr('width', function(d) {
+        return d.width
+      }).attr('height', 20)
+      .attr('x', function(d) {
+        return -d.width / 2
+      })
+      .attr('y', -10)
+      .attr('rx', 3).attr('ry', 3)
+      .attr('fill', function(d) {
+        return d.entered ? '#337ab7' :
+          (d.exit ? '#f0ad4e' : '#fff');
+      }).attr('stroke', function(d) {
+        return d.entered ? '#2e6da4' : 
+          (d.exit ? '#eea236' : '#ccc');
+      }).attr('stroke-width', 2);
   },
   renderLinks: function(links) {
     this.link = this.d3.selectAll('.link')
       .data(links, function(d) {
         return d.source.name + ',' + d.target.name;
-      });
-
-    this.link.enter().insert('line', '.node')
-      .classed('link', true);
-    this.link.exit().remove();
-
-    this.link.attr('stroke', '#ccc')
+      }).enter().insert('line', '.node')
+      .classed('link', true)
+      .attr('stroke', '#ccc')
       .attr('stroke-width', 2);
-  },
-  updateForce: function(nodes, links) {
-    this.force.nodes(nodes)
-      .links(links);
-
-    this.force.start();
   },
   onTick: function() {
     this.node.attr('transform', function(d) {
