@@ -1,4 +1,18 @@
 <table>
+  <tr>
+    <th><h3>Comments</h3></th>
+    <th><h3>
+    <% if (key !== 'd3_01') { %>
+      Backbone.js
+    <% } %>
+    </h3></th>
+    <th><h3>
+    <% if (key !== 'backbone_01') { %>
+      D3.js
+    <% } %>
+    </h3></th>
+  </tr>
+
   <% _.each(sections, function(section) { 
     var range = section.range;
     var dataLines = _.filter(highlights, function(highlight) {

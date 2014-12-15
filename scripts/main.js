@@ -43,6 +43,7 @@ require([
               $.get('scripts/' + key + '.js', function(file) {
                 var lines = file.split(/\n/);
                 var codeView = new CodeView({
+                    key: key,
                     el: $('.' + key),
                     lines: lines,
                     sections: sections,

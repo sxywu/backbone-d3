@@ -11,6 +11,7 @@ define([
 ) {
   return Backbone.View.extend({
     initialize: function() {
+      this.key = this.options.key;
       this.lines = this.options.lines;
       this.sections = this.options.sections;
       this.highlights = this.options.highlights;
@@ -18,6 +19,7 @@ define([
     },
     render: function() {
       var template = _.template(CodeTemplate, {
+        key: this.key,
         sections: this.sections, 
         lines: this.lines,
         highlights: this.highlights,
