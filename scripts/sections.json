@@ -64,8 +64,8 @@
   "backboned3_03": [
     {"range": [1,96], "types": ["backbone", "fetch"]},
     {"range": [97,101], "types": ["backbone", "render"]},
-    {"range": [101,105], "types": ["backbone", "update"]},
-    {"range": [106,110], "types": ["d3", "render"]},
+    {"range": [101,105], "types": ["d3", "render"]},
+    {"range": [106,110], "types": ["backbone", "update"]},
     {"range": [111, 127], "types": ["backbone", "render"]},
     {"range": [128,210], "types": ["backbone", "update"]},
     {"range": [211,229], "types": ["d3", "render"]},
