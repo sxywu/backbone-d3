@@ -99,14 +99,14 @@ var AppView = Backbone.View.extend({
     this.collection = this.options.collection;
     this.graphCollection = this.options.graphCollection;
 
-    this.collection.on('reset add remove change', this.render, this);
-    this.graphCollection.on('reset add', this.addToGraph, this);
-    this.graphCollection.on('remove', this.removeFromGraph, this);
-
     this.graphVisualization = GraphVisualization()
       .width(300).height(300);
     d3.select(this.$('.graph')[0])
       .call(this.graphVisualization);
+
+    this.collection.on('reset add remove change', this.render, this);
+    this.graphCollection.on('reset add', this.addToGraph, this);
+    this.graphCollection.on('remove', this.removeFromGraph, this);
   },
   render: function() {
     this.renderTime();
