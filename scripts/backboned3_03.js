@@ -1,14 +1,14 @@
 var PartyCollection = Backbone.Collection.extend({
   fetch: function() {
-    var response = localStorage['party'];
+    var response = localStorage['party3'];
     response = (response ? $.parseJSON(response) : []);
     this.reset(response);
   },
   save: function() {
-    localStorage['party'] = JSON.stringify(this.toJSON());
+    localStorage['party3'] = JSON.stringify(this.toJSON());
   },
   clear: function() {
-    delete localStorage['party'];
+    delete localStorage['party3'];
     this.reset();
   },
   getSelectedTime: function() {
