@@ -26,14 +26,18 @@
   "backboned3_01": [
     {"range": [1,69], "types": ["backbone", "fetch"],
     "notes": "This time, <div class='label label-primary'>fetch</div> the data from <code>localhost</code>.  Also add <code>save</code> and <code>reset</code> capabilities.<br><br><br>Instead of <code>getPartiersAtTime</code> as in the previous example, use <code>getGraphAtTime</code> to calculate the nodes (partiers) and links (partiers talking to each other) at a given time."},
-    {"range": [70,136], "types": ["backbone", "render"]},
-    {"range": [139,144], "types": ["d3", "render"]},
-    {"range": [145,169], "types": ["backbone", "render"]},
-    {"range": [170,222], "types": ["d3", "render"]},
-    {"range": [223, 244], "types": ["d3", "update"]},
-    {"range": [245, 245], "types": ["backbone", "fetch"]},
-    {"range": [246, 249], "types": ["backbone", "render"]},
-    {"range": [250, 250], "types": ["backbone", "fetch"]}
+    {"range": [70,78], "types": ["backbone", "render"]},
+    {"range": [79,79], "types": ["backbone", "update"]},
+    {"range": [80,97], "types": ["backbone", "render"]},
+    {"range": [98,134], "types": ["backbone", "update"]},
+    {"range": [135,138], "types": ["backbone", "render"]},
+    {"range": [139,145], "types": ["d3", "render"]},
+    {"range": [146,146], "types": ["backbone", "update"]},
+    {"range": [147,160], "types": ["backbone", "render"]},
+    {"range": [161,222], "types": ["d3", "render"]},
+    {"range": [223, 223], "types": ["backbone", "fetch"]},
+    {"range": [224, 227], "types": ["backbone", "render"]},
+    {"range": [228, 228], "types": ["backbone", "fetch"]}
   ],
   "backboned3_02": [
     {"range": [1,70], "types": ["backbone", "fetch"]},
