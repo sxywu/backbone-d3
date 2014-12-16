@@ -76,6 +76,16 @@ body {
   width: 650px;
 }
 
+.footer {
+  position: fixed;
+  right: -5px;
+  top: 0;
+  background-color: #fff;
+  padding: 5px;
+  align-content: center;
+  text-align: center;
+}
+
 svg {
   height: 300px;
   width: 500px;
