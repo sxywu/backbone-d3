@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Droid Serif';
+  src: url(../fonts/DroidSerif.ttf) format("truetype");
+}
+
 body {
   font-family: 'Droid Serif', serif;
 }
