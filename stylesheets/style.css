@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Droid Serif';
+  src: url(../fonts/DroidSerif.ttf) format("truetype");
+}
+
 body {
   font-family: 'Droid Serif', serif;
 }
@@ -25,6 +30,7 @@ body {
 .times {
   width: 100px;
   display: inline-block;
+  vertical-align: top;
 }
 
 .partiers {
@@ -53,6 +59,10 @@ body {
   width: 50%;
 }
 
+.codeSample td {
+  width: 33%;
+}
+
 .d3examples, .reusableExamples, .reusableExamplesLarge {
   height: 250px;
   margin-top: 10px;
@@ -62,13 +72,23 @@ body {
   height: 350px;
 }
 
-.party_3_results {
+.party_results {
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-top: 20px;
   margin-bottom: 80px;
   padding: 10px;
   width: 650px;
+}
+
+.footer {
+  position: fixed;
+  right: -5px;
+  top: 0;
+  background-color: #fff;
+  padding: 5px;
+  align-content: center;
+  text-align: center;
 }
 
 svg {

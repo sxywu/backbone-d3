@@ -244,7 +244,7 @@ var GraphVisualization = function() {
     });
   }
 
-  persistPositions = function() {
+  var persistPositions = function() {
     if (!node) return;
 
     node.each(function(d) {

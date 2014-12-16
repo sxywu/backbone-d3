@@ -40,9 +40,10 @@ require([
     $.get('scripts/sections.json', function(allSections) {
         $.get('scripts/highlights.json', function(highlights) {
             _.each(allSections, function(sections, key) {
-              $.get('scripts/' + key + '.js', function(file) {
+              $.get('scripts/' + key + '.js', {}, function(file) {
                 var lines = file.split(/\n/);
                 var codeView = new CodeView({
+                    key: key,
                     el: $('.' + key),
                     lines: lines,
                     sections: sections,
@@ -50,7 +51,7 @@ require([
                 });
 
                 codeView.render();
-              });
+              }, 'text');
             });
         });
     });
